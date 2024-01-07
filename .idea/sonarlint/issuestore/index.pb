@@ -1,0 +1,19 @@
+
+@
+build.gradle.kts,d\b\dbcff70658daf80b53ce624f6adcaa529df5ed8d
+h
+8app/src/main/java/com/example/flowsyroomfrancisco/App.kt,3\7\37fb41963a013c6de52068444e4f84747575583d
+D
+app/build.gradle.kts,d\2\d2a4383452aad84a18429a5844d31330a012a9e6
+Å
+Qapp/src/main/java/com/example/flowsyroomfrancisco/ui/login/ui/login/LoginEvent.kt,7\6\76479cadaa62f38fb1ed13e7298ee0270168cbfd
+Ñ
+Tapp/src/main/java/com/example/flowsyroomfrancisco/ui/login/ui/login/LoginFragment.kt,b\3\b31ce26fc864ce4f84f69711f190367b6b9d20ca
+Å
+Qapp/src/main/java/com/example/flowsyroomfrancisco/ui/login/ui/login/LoginState.kt,e\9\e99de661ecfd1c4671e3df062f47e52770d25388
+Ö
+Uapp/src/main/java/com/example/flowsyroomfrancisco/ui/login/ui/login/LoginViewModel.kt,d\7\d7d32a3cc470b42482425d824a1934b7765eeaa7
+P
+ app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
+É
+Sapp/src/main/java/com/example/flowsyroomfrancisco/ui/login/ui/login/MainActivity.kt,1\9\195812d8c6d12374f24bef523b53f20514885921
