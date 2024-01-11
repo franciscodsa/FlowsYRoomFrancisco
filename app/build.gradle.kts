@@ -81,6 +81,9 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.48")
     kapt("com.google.dagger:hilt-compiler:2.48")
 
+    //data store
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+
     // Timber
     implementation("com.jakewharton.timber:timber:5.0.1")
 }
