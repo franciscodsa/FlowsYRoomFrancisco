@@ -1,7 +1,7 @@
 package com.example.flowsyroomfrancisco.ui.inicio.login
 
 data class LoginState(
-    val email: String? = null,
-    val password: String? = null,
+    val logged: Boolean = false,
+    val isLoading: Boolean = false,
     val message: String? = null
 )

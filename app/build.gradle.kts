@@ -83,7 +83,8 @@ dependencies {
 
     //data store
     implementation("androidx.datastore:datastore-preferences:1.0.0")
-
+    //posiblemente hay que eliminarla, la agrego androidstudio porque salio en rojo el datastore cuando volvi a abrir el proyecto
+    implementation("androidx.datastore:datastore-core:1.0.0")
     // Timber
     implementation("com.jakewharton.timber:timber:5.0.1")
 }

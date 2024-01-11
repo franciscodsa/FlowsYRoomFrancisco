@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
+import com.example.flowsyroomfrancisco.data.sources.remote.UserService
 import com.example.flowsyroomfrancisco.utils.TokenManager
 import com.squareup.moshi.FromJson
 import com.squareup.moshi.Moshi
@@ -16,10 +17,12 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.create
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import javax.inject.Singleton
+
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "data_store")
 
@@ -55,11 +58,15 @@ object NetworkModule {
         moshiConverterFactory: MoshiConverterFactory
     ): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(""/*ConstantesSources.urlsBase*/)
+            .baseUrl("http://192.168.1.131:8080/PracticaLoginRegistro-1.0-SNAPSHOT/api/")
             .client(okHttpClient)
             .addConverterFactory(moshiConverterFactory)
             .build()
     }
+
+    @Singleton
+    @Provides
+    fun provideUserService(retrofit: Retrofit): UserService = retrofit.create(UserService::class.java)
 
 
 }
