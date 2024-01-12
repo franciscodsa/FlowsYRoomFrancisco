@@ -3,11 +3,13 @@ import com.example.flowsyroomfrancisco.data.sources.remote.ConstantesSources.err
 import com.example.flowsyroomfrancisco.data.model.LoginInfoResponse
 import com.example.flowsyroomfrancisco.data.model.LoginRequest
 import com.example.flowsyroomfrancisco.utils.NetworkResultt
+import com.example.flowsyroomfrancisco.utils.TokenManager
 import java.lang.Exception
 import javax.inject.Inject
 
 class RemoteDataSource @Inject constructor(
-    private val userApiService: UserApiService
+    private val userApiService: UserApiService,
+    private val tokenManager: TokenManager
 ){
 
     suspend fun login(loginRequest: LoginRequest): NetworkResultt<LoginInfoResponse>{
@@ -19,7 +21,10 @@ class RemoteDataSource @Inject constructor(
                 error("$error ${response.code()} : $errorMessage")
             } else {
                 val body = response.body()
+
                 body?.let {
+                    tokenManager.saveAccessToken(it.accessToken)
+                    tokenManager.saveRefreshToken(it.accessToken)
                     return NetworkResultt.Success(it)
                 }
                 error(ConstantesSources.noData)

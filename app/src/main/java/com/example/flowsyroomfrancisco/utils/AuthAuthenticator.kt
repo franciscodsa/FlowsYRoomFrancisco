@@ -1,6 +1,5 @@
 package com.example.flowsyroomfrancisco.utils
 
-import com.example.flowsyroomfrancisco.data.model.LoginInfoResponse
 import com.example.flowsyroomfrancisco.data.sources.remote.ConstantesSources
 import com.example.flowsyroomfrancisco.data.sources.remote.UserApiService
 import kotlinx.coroutines.flow.first
@@ -19,18 +18,19 @@ class AuthAuthenticator @Inject constructor(
     private val tokenManager: TokenManager
 ): Authenticator {
     override fun authenticate(route: Route?, response: Response): Request? {
-        val token = runBlocking {
-            tokenManager.getToken().first()
+        val refreshToken = runBlocking {
+            tokenManager.getRefreshToken().first()
         }
         return runBlocking {
-            val newToken = getNewToken(token)
+            val newToken = getNewToken(refreshToken)
 
             if (!newToken.isSuccessful || newToken.body() == null) { //Couldn't refresh the token, so restart the login process
-                tokenManager.deleteToken()
+                tokenManager.deleteAccessToken()
+                tokenManager.deleteRefreshToken()
             }
 
             newToken.body()?.let {
-                tokenManager.saveToken(it)
+                tokenManager.saveAccessToken(it)
                 response.request.newBuilder()
                     .header("Authorization", "Bearer ${it}")
                     .build()

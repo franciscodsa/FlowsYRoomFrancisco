@@ -11,32 +11,45 @@ import javax.inject.Inject
 
 class TokenManager @Inject constructor(@ApplicationContext private val context: Context) {
     companion object{
-        private val TOKEN_KEY = stringPreferencesKey("jwt_token")
-        private val REFRESH_TOKEN_KEY = stringPreferencesKey("refresh_jwt_token")
+        private val accessTokenKey = stringPreferencesKey("jwt_token")
+        private val refreshTokenKey = stringPreferencesKey("refresh_jwt_token")
     }
 
-    fun getToken(): Flow<String?>{
+    fun getAccessToken(): Flow<String?>{
         return context.dataStore.data.map {
             preferences ->
-            preferences[TOKEN_KEY]
+            preferences[accessTokenKey]
         }
     }
 
-    fun getRefreshToken(): Flow<String?>{
-        return context.dataStore.data.map {
-            preferences ->
-            preferences[REFRESH_TOKEN_KEY]
-        }
-    }
-    suspend fun saveToken(token: String) {
+
+    suspend fun saveAccessToken(token: String) {
         context.dataStore.edit { preferences ->
-            preferences[TOKEN_KEY] = token
+            preferences[accessTokenKey] = token
         }
     }
 
-    suspend fun deleteToken() {
+    suspend fun deleteAccessToken() {
         context.dataStore.edit { preferences ->
-            preferences.remove(TOKEN_KEY)
+            preferences.remove(accessTokenKey)
+        }
+    }
+
+    fun getRefreshToken(): Flow<String?> {
+        return context.dataStore.data.map { preferences ->
+            preferences[refreshTokenKey]
+        }
+    }
+
+    suspend fun saveRefreshToken(token: String) {
+        context.dataStore.edit { preferences ->
+            preferences[refreshTokenKey] = token
+        }
+    }
+
+    suspend fun deleteRefreshToken() {
+        context.dataStore.edit { preferences ->
+            preferences.remove(refreshTokenKey)
         }
     }
 }

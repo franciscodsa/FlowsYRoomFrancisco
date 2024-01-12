@@ -61,6 +61,8 @@ class LoginFragment: Fragment() {
                     value.logged?.let {
                         if (it){
                             Toast.makeText(this@LoginFragment.context, it.toString(), Toast.LENGTH_LONG).show()
+                            val action = LoginFragmentDirections.actionLoginFragmentToRegistroFragment()
+                            findNavController().navigate(action)
                         }
                     }
 
