@@ -25,7 +25,7 @@ class RemoteDataSource @Inject constructor(
 
                 body?.let {
                     tokenManager.saveAccessToken(it.accessToken)
-                    tokenManager.saveRefreshToken(it.accessToken)
+                    tokenManager.saveRefreshToken(it.refreshToken)
                     return NetworkResultt.Success(it)
                 }
                 error(ConstantesSources.noData)

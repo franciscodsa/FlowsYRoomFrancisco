@@ -45,11 +45,13 @@ class AuthAuthenticator @Inject constructor(
         val okHttpClient = OkHttpClient.Builder().addInterceptor(loggingInterceptor).build()
 
         val retrofit = Retrofit.Builder()
-            .baseUrl(ConstantesSources.urlsBase + "users/refreshToken/")
+            .baseUrl(ConstantesSources.urlsBase)
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()
         val service = retrofit.create(UserApiService::class.java)
+
+        // TODO hay que cambiar esto para que funcione poruqe esta mandando el query param con bearer delante del refreshtoken
         return service.refreshAccessToken("Bearer $refreshToken")
     }
 }
