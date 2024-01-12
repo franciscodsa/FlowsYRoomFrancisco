@@ -33,13 +33,12 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    fun login(email: String, password: String) {
+    private fun login(email: String, password: String) {
         viewModelScope.launch {
             loginUsecase.invoke(email, password)
                 .catch(action = { cause -> _uiError.send(cause.message ?: "") })
                 .collect { result ->
                     when (result) {
-                        //TODO: PREGUNTAR COMO HACE EN ESTE CASO PARA NO USAR EL !!
                         is NetworkResultt.Error -> _uiState.update {
                             it.copy(
                                 message = result.message

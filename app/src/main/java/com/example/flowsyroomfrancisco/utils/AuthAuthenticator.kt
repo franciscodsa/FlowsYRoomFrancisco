@@ -25,8 +25,8 @@ class AuthAuthenticator @Inject constructor(
             val newToken = getNewToken(refreshToken)
 
             if (!newToken.isSuccessful || newToken.body() == null) { //Couldn't refresh the token, so restart the login process
-                tokenManager.deleteAccessToken()
-                tokenManager.deleteRefreshToken()
+                /*tokenManager.deleteAccessToken()
+                tokenManager.deleteRefreshToken()*/
             }
 
             newToken.body()?.let {
@@ -45,7 +45,7 @@ class AuthAuthenticator @Inject constructor(
         val okHttpClient = OkHttpClient.Builder().addInterceptor(loggingInterceptor).build()
 
         val retrofit = Retrofit.Builder()
-            .baseUrl(ConstantesSources.urlsBase + "users/refreshToken")
+            .baseUrl(ConstantesSources.urlsBase + "users/refreshToken/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()
