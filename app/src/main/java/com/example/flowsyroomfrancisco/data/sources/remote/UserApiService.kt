@@ -17,5 +17,5 @@ interface UserApiService {
     suspend fun register(@Body user: LoginRequest): Response<UserResponse>
 
     @GET("users/refreshToken")
-    suspend fun refreshAccessToken(@Query("refreshToken") refreshToken: String): Response<String>
+    suspend fun refreshAccessToken(@Query("refreshToken") refreshToken: String): Response<LoginInfoResponse>
 }

@@ -1,5 +1,6 @@
 package com.example.flowsyroomfrancisco.utils
 
+import com.example.flowsyroomfrancisco.data.model.LoginInfoResponse
 import com.example.flowsyroomfrancisco.data.sources.remote.ConstantesSources
 import com.example.flowsyroomfrancisco.data.sources.remote.UserApiService
 import kotlinx.coroutines.flow.first
@@ -30,7 +31,7 @@ class AuthAuthenticator @Inject constructor(
             }
 
             newToken.body()?.let {
-                tokenManager.saveAccessToken(it)
+                tokenManager.saveAccessToken(it.accessToken)
                 response.request.newBuilder()
                     .header("Authorization", "Bearer ${it}")
                     .build()
@@ -39,7 +40,7 @@ class AuthAuthenticator @Inject constructor(
     }
 
 
-    private suspend fun getNewToken(refreshToken: String?): retrofit2.Response<String> {
+    private suspend fun getNewToken(refreshToken: String?): retrofit2.Response<LoginInfoResponse> {
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         val okHttpClient = OkHttpClient.Builder().addInterceptor(loggingInterceptor).build()
