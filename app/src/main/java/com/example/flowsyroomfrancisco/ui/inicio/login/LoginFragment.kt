@@ -16,12 +16,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class LoginFragment: Fragment() {
-    private var _binding: FragmentLoginBinding?= null
+class LoginFragment : Fragment() {
+    private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
-
     private val viewModel: LoginViewModel by viewModels()
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,15 +27,24 @@ class LoginFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-        with(binding){
-            registrarseBttn.setOnClickListener{
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupUI()
+        observe()
+    }
+
+    private fun setupUI() {
+        with(binding) {
+            registrarseBttn.setOnClickListener {
                 val action = LoginFragmentDirections.actionLoginFragmentToRegistroFragment()
                 findNavController().navigate(action)
             }
 
-            loginBttn.setOnClickListener{
-                //TODO: envia peticion de login y con esto probablemente se tenga que hacer algo para establecer el token en el interceptor de llamadas
+            loginBttn.setOnClickListener {
+                //TODO: envía petición de login y establece el token en el interceptor de llamadas
                 val email: String = loginTextEmailAddress.text.toString()
                 val password: String = loginTextNumberPassword.text.toString()
                 viewModel.handleEvent(LoginEvent.Login(email, password))
@@ -48,12 +55,6 @@ class LoginFragment: Fragment() {
                 findNavController().navigate(action)
             }
         }
-
-        observe()
-
-        return binding.root
-
-
     }
 
     private fun observe() {
@@ -74,14 +75,11 @@ class LoginFragment: Fragment() {
                     }
 
                     value.message?.let {
-
                         Toast.makeText(this@LoginFragment.context, it, Toast.LENGTH_LONG).show()
                     }
                 }
             }
-        }
 
-        lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiError.collect {
                     binding.editTextTextMultiLine.setText(it)
@@ -90,6 +88,4 @@ class LoginFragment: Fragment() {
             }
         }
     }
-
-
 }
