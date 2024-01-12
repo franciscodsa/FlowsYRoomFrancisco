@@ -21,4 +21,6 @@ class BlogsFragment : Fragment() {
         _binding = FragmentBlogsBinding.inflate(inflater, container, false)
         return binding.root
     }
+
+
 }

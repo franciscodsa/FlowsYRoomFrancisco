@@ -18,10 +18,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class RegistroFragment: Fragment() {
-    private var _binding: FragmentRegistroBinding?= null
+class RegistroFragment : Fragment() {
+    private var _binding: FragmentRegistroBinding? = null
     private val binding get() = _binding!!
-
     private val viewModel: RegistroViewModel by viewModels()
 
     override fun onCreateView(
@@ -30,23 +29,36 @@ class RegistroFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentRegistroBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-        with(binding){
-            registroRegistrarseBttn.setOnClickListener{
-                val password = binding.registroTextNumberPassword.text.toString()
-                val confirmPassword = binding.editTextTextPassword.text.toString()
-                if (password == confirmPassword){
-                    viewModel.handleEvent(RegistroEvent.Register(binding.registroTextEmailAddress.text.toString(), password))
-                }else{
-                    Toast.makeText(this@RegistroFragment.context, "contraseñas no coinciden", Toast.LENGTH_LONG).show()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupUI()
+        observe()
+    }
+
+    private fun setupUI() {
+        with(binding) {
+            registroRegistrarseBttn.setOnClickListener {
+                val password = registroTextNumberPassword.text.toString()
+                val confirmPassword = editTextTextPassword.text.toString()
+                if (password == confirmPassword) {
+                    viewModel.handleEvent(
+                        RegistroEvent.Register(
+                            registroTextEmailAddress.text.toString(),
+                            password
+                        )
+                    )
+                } else {
+                    Toast.makeText(
+                        this@RegistroFragment.context,
+                        "Contraseñas no coinciden",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
-
-
             }
         }
-
-        observe()
-        return binding.root
     }
 
     private fun observe() {
@@ -67,14 +79,11 @@ class RegistroFragment: Fragment() {
                     }
 
                     value.message?.let {
-
                         Toast.makeText(this@RegistroFragment.context, it, Toast.LENGTH_LONG).show()
                     }
                 }
             }
-        }
 
-        lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiError.collect {
                     Toast.makeText(this@RegistroFragment.context, it, Toast.LENGTH_LONG).show()
@@ -82,6 +91,5 @@ class RegistroFragment: Fragment() {
             }
         }
     }
-
 
 }

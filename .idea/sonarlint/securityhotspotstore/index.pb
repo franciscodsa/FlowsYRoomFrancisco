@@ -53,3 +53,17 @@ Zapp/src/main/java/com/example/flowsyroomfrancisco/data/sources/remote/Constante
 Lapp/src/main/java/com/example/flowsyroomfrancisco/utils/AuthAuthenticator.kt,b\9\b998c0383d326391dde2301e3f20903fc792afad
 â
 Yapp/src/main/java/com/example/flowsyroomfrancisco/data/sources/remote/RemoteDataSource.kt,4\f\4f8514416ec954d72fea4bfc599dd1dc5c400fd8
+Ö
+Uapp/src/main/java/com/example/flowsyroomfrancisco/ui/inicio/olvide/OlvideViewModel.kt,b\d\bde0d4e5114b123876f192ef112daaa04449fd7a
+Ñ
+Tapp/src/main/java/com/example/flowsyroomfrancisco/ui/inicio/olvide/OlvideFragment.kt,e\5\e531181779c7ca825cc4f3b4ae38a5a6ae92aa65
+y
+Iapp/src/main/java/com/example/flowsyroomfrancisco/utils/NetworkResultt.kt,c\8\c81720d4ee7b08a12d4ec0c282934a555e739520
+|
+Lapp/src/main/java/com/example/flowsyroomfrancisco/data/model/LoginRequest.kt,a\8\a8a3a01f15048917db5a57bdeae021040ceecdd9
+Å
+Qapp/src/main/java/com/example/flowsyroomfrancisco/data/model/LoginInfoResponse.kt,9\b\9b3baa5e99041e32b42c89330123d3bcb015aafb
+Ä
+Papp/src/main/java/com/example/flowsyroomfrancisco/ui/list/blogs/BlogsFragment.kt,6\f\6f65062b3213593fa57980c1a5f99f65057b683a
+{
+Kapp/src/main/java/com/example/flowsyroomfrancisco/ui/list/SecondActivity.kt,7\d\7d71925c4b8d5848a1b21dae4f8ac3f95bbc7bbd

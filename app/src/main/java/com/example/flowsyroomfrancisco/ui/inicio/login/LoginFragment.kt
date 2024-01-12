@@ -1,5 +1,6 @@
 package com.example.flowsyroomfrancisco.ui.inicio.login
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.flowsyroomfrancisco.databinding.FragmentLoginBinding
+import com.example.flowsyroomfrancisco.ui.list.SecondActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -65,12 +67,12 @@ class LoginFragment : Fragment() {
                         if (it) {
                             Toast.makeText(
                                 this@LoginFragment.context,
-                                it.toString(),
+                                "Bienvenido!",
                                 Toast.LENGTH_LONG
                             ).show()
-                            val action =
-                                LoginFragmentDirections.actionLoginFragmentToRegistroFragment()
-                            findNavController().navigate(action)
+
+                            val intent = Intent(this@LoginFragment.context, SecondActivity::class.java)
+                            startActivity(intent)
                         }
                     }
 
