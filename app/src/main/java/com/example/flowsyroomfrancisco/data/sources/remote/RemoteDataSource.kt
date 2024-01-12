@@ -7,12 +7,12 @@ import java.lang.Exception
 import javax.inject.Inject
 
 class RemoteDataSource @Inject constructor(
-    private val userService: UserService
+    private val userApiService: UserApiService
 ){
 
     suspend fun login(loginRequest: LoginRequest): NetworkResultt<LoginInfoResponse>{
         try {
-            val response = userService.login(loginRequest)
+            val response = userApiService.login(loginRequest)
 
             return if (!response.isSuccessful) {
                 val errorMessage = response.errorBody()?.string() ?: ConstantesSources.unknownError

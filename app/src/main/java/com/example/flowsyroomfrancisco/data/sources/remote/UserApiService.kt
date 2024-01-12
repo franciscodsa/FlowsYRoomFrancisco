@@ -4,9 +4,14 @@ import com.example.flowsyroomfrancisco.data.model.LoginInfoResponse
 import com.example.flowsyroomfrancisco.data.model.LoginRequest
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Query
 
-interface UserService {
+interface UserApiService {
     @POST("users/login")
     suspend fun login(@Body request: LoginRequest): Response<LoginInfoResponse>
+
+    @GET("users/refreshToken")
+    suspend fun refreshAccessToken(@Query("refreshToken") refreshToken: String): Response<String>
 }

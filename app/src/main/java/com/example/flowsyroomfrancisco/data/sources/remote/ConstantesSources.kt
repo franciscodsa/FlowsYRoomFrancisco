@@ -17,6 +17,6 @@ object ConstantesSources {
     const val deleteCustomer ="customers/{id}"
 
     //NetworkModule
-    const val urlsBase = "http://informatica.iesquevedo.es:2326/FranciscoRest/api/"
+    const val urlsBase = "http://10.2.3.113:8080/PracticaLoginRegistro-1.0-SNAPSHOT/api/"
 
 }
