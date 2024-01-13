@@ -11,9 +11,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import com.example.flowsyroomfrancisco.databinding.FragmentLoginBinding
 import com.example.flowsyroomfrancisco.databinding.FragmentRegistroBinding
-import com.example.flowsyroomfrancisco.ui.inicio.login.LoginFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -73,7 +71,7 @@ class RegistroFragment : Fragment() {
                                 Toast.LENGTH_LONG
                             ).show()
                             val action =
-                                LoginFragmentDirections.actionLoginFragmentToRegistroFragment()
+                                RegistroFragmentDirections.actionRegistroFragmentToLoginFragment()
                             findNavController().navigate(action)
                         }
                     }
