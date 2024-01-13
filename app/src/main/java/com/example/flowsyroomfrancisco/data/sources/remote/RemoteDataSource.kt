@@ -1,8 +1,11 @@
 package com.example.flowsyroomfrancisco.data.sources.remote
+
 import com.example.flowsyroomfrancisco.data.sources.remote.ConstantesSources.error
 import com.example.flowsyroomfrancisco.data.model.LoginInfoResponse
 import com.example.flowsyroomfrancisco.data.model.LoginRequest
 import com.example.flowsyroomfrancisco.data.model.UserResponse
+import com.example.flowsyroomfrancisco.data.model.toBlog
+import com.example.flowsyroomfrancisco.domain.model.Blog
 import com.example.flowsyroomfrancisco.utils.NetworkResultt
 import com.example.flowsyroomfrancisco.utils.TokenManager
 import java.lang.Exception
@@ -10,6 +13,7 @@ import javax.inject.Inject
 
 class RemoteDataSource @Inject constructor(
     private val userApiService: UserApiService,
+    private val blogApiService: BlogApiService,
     private val tokenManager: TokenManager
 ){
 
@@ -49,6 +53,25 @@ class RemoteDataSource @Inject constructor(
                     return NetworkResultt.Success(it)
                 }
                 error(ConstantesSources.noData)
+            }
+        } catch (e: Exception) {
+            return error(e.message ?: e.toString())
+        }
+    }
+
+    suspend fun getAllBlogs(): NetworkResultt<List<Blog>> {
+        try {
+            val response = blogApiService.getAllBlogs()
+
+            if (response.isSuccessful) {
+                val body = response.body()
+                body?.let {
+                    return NetworkResultt.Success(it)
+                }
+                error(ConstantesSources.noData)
+            } else {
+                val errorMessage = response.errorBody()?.string() ?: ConstantesSources.unknownError
+                error("${error} ${response.code()} : $errorMessage")
             }
         } catch (e: Exception) {
             return error(e.message ?: e.toString())

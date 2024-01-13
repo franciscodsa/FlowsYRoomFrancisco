@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
+import com.example.flowsyroomfrancisco.data.sources.remote.BlogApiService
 import com.example.flowsyroomfrancisco.data.sources.remote.ConstantesSources
 import com.example.flowsyroomfrancisco.data.sources.remote.UserApiService
 import com.example.flowsyroomfrancisco.utils.AuthAuthenticator
@@ -80,6 +81,11 @@ object NetworkModule {
     @Singleton
     @Provides
     fun provideUserService(retrofit: Retrofit): UserApiService = retrofit.create(UserApiService::class.java)
+
+    @Singleton
+    @Provides
+    fun provideBlogService(retrofit: Retrofit):
+            BlogApiService = retrofit.create(BlogApiService::class.java)
 
 
 }

@@ -1,4 +1,6 @@
 package com.example.flowsyroomfrancisco.ui.list.blogs
 
-class BlogsEvent {
+sealed class BlogsEvent {
+    //TODO: RECUERDA AGREGAR EL EVENTO DE MENSAJE VISTO
+    object GetAllBlogs: BlogsEvent()
 }

@@ -41,7 +41,6 @@ class RegistroViewModel @Inject constructor(
                 .catch(action = { cause -> _uiError.send(cause.message ?: "") })
                 .collect { result ->
                     when (result) {
-                        //TODO: PREGUNTAR COMO HACE EN ESTE CASO PARA NO USAR EL !!
                         is NetworkResultt.Error -> _uiState.update {
                             it.copy(
                                 message = result.message
