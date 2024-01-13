@@ -1,4 +1,4 @@
-package com.example.flowsyroomfrancisco.data.sources.remote
+package com.example.flowsyroomfrancisco.data.sources.remote.apiservices
 
 import com.example.flowsyroomfrancisco.data.model.BlogEntity
 import com.example.flowsyroomfrancisco.domain.model.Blog

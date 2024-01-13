@@ -42,4 +42,12 @@ class UserRepository @Inject constructor(
             }
         }.flowOn(Dispatchers.IO)
     }
+
+    fun forgotPassword(email: String): Flow<NetworkResultt<Unit>>{
+        return flow {
+            emit(NetworkResultt.Loading())
+            val result=remoteDataSource.forgotPassword(email)
+            emit(result)
+        }.flowOn(Dispatchers.IO)
+    }
 }

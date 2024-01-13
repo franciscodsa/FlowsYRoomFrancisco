@@ -2,7 +2,7 @@ package com.example.flowsyroomfrancisco.utils
 
 import com.example.flowsyroomfrancisco.data.model.LoginInfoResponse
 import com.example.flowsyroomfrancisco.data.sources.remote.ConstantesSources
-import com.example.flowsyroomfrancisco.data.sources.remote.UserApiService
+import com.example.flowsyroomfrancisco.data.sources.remote.apiservices.UserApiService
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import okhttp3.Authenticator

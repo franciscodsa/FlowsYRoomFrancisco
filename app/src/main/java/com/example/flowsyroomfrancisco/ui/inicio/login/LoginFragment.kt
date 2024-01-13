@@ -53,6 +53,11 @@ class LoginFragment : Fragment() {
             }
 
             passwordOlvidadaBttn.setOnClickListener {
+                viewModel.handleEvent(
+                    LoginEvent.OlvidePassword(
+                        editTextTextEmailAddressOlvideContraseA.text.toString()
+                    )
+                )
                 val action = LoginFragmentDirections.actionLoginFragmentToOlvideFragment()
                 findNavController().navigate(action)
             }
@@ -63,29 +68,38 @@ class LoginFragment : Fragment() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect { value ->
-                    value.logged?.let {
-                        if (it) {
-                            Toast.makeText(
-                                this@LoginFragment.context,
-                                "Bienvenido!",
-                                Toast.LENGTH_LONG
-                            ).show()
+                    val tempPass = value.isTempPassword
+                    if (value.logged && !tempPass) {
+                        // Logged in and not a temporary password
+                        Toast.makeText(
+                            requireContext(),
+                            "Bienvenido!",
+                            Toast.LENGTH_LONG
+                        ).show()
 
-                            val intent = Intent(this@LoginFragment.context, SecondActivity::class.java)
-                            startActivity(intent)
-                        }
+                        val intent = Intent(this@LoginFragment.context, SecondActivity::class.java)
+                        startActivity(intent)
+                    } else if (value.logged && value.isTempPassword) {
+                        // Logged in with temporary password, navigate to change password fragment
+
+                        val action =
+                            LoginFragmentDirections.actionLoginFragmentToOlvideFragment()
+                        findNavController().navigate(action)
                     }
 
                     value.message?.let {
-                        Toast.makeText(this@LoginFragment.context, it, Toast.LENGTH_LONG).show()
+                        Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
                     }
                 }
+
             }
 
+        }
+
+        lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiError.collect {
-                    binding.editTextTextMultiLine.setText(it)
-                    Toast.makeText(this@LoginFragment.context, it, Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
                 }
             }
         }

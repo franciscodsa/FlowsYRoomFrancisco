@@ -81,10 +81,11 @@ class RegistroFragment : Fragment() {
                     }
                 }
             }
-
+        }
+        lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiError.collect {
-                    Toast.makeText(this@RegistroFragment.context, it, Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
                 }
             }
         }

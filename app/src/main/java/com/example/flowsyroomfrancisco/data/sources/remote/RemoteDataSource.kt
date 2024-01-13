@@ -4,7 +4,8 @@ import com.example.flowsyroomfrancisco.data.sources.remote.ConstantesSources.err
 import com.example.flowsyroomfrancisco.data.model.LoginInfoResponse
 import com.example.flowsyroomfrancisco.data.model.LoginRequest
 import com.example.flowsyroomfrancisco.data.model.UserResponse
-import com.example.flowsyroomfrancisco.data.model.toBlog
+import com.example.flowsyroomfrancisco.data.sources.remote.apiservices.BlogApiService
+import com.example.flowsyroomfrancisco.data.sources.remote.apiservices.UserApiService
 import com.example.flowsyroomfrancisco.domain.model.Blog
 import com.example.flowsyroomfrancisco.utils.NetworkResultt
 import com.example.flowsyroomfrancisco.utils.TokenManager
@@ -53,6 +54,22 @@ class RemoteDataSource @Inject constructor(
                     return NetworkResultt.Success(it)
                 }
                 error(ConstantesSources.noData)
+            }
+        } catch (e: Exception) {
+            return error(e.message ?: e.toString())
+        }
+    }
+
+
+    suspend fun forgotPassword(email: String): NetworkResultt<Unit>{
+        try {
+            val response = userApiService.forgotPassword(email)
+
+            return if (response.isSuccessful) {
+                NetworkResultt.Success(Unit)
+            } else {
+                val errorMessage = response.errorBody()?.string() ?: ConstantesSources.unknownError
+                error("${error} ${response.code()} : $errorMessage")
             }
         } catch (e: Exception) {
             return error(e.message ?: e.toString())

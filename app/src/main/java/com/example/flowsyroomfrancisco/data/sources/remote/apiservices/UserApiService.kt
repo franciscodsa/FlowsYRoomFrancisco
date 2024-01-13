@@ -1,4 +1,4 @@
-package com.example.flowsyroomfrancisco.data.sources.remote
+package com.example.flowsyroomfrancisco.data.sources.remote.apiservices
 
 import com.example.flowsyroomfrancisco.data.model.LoginInfoResponse
 import com.example.flowsyroomfrancisco.data.model.LoginRequest
@@ -15,6 +15,9 @@ interface UserApiService {
 
     @POST("users/register")
     suspend fun register(@Body user: LoginRequest): Response<UserResponse>
+
+    @POST("users/forgotPassword")
+    suspend fun forgotPassword(@Query("email") email: String): Response<Unit>
 
     @GET("users/refreshToken")
     suspend fun refreshAccessToken(@Query("refreshToken") refreshToken: String): Response<LoginInfoResponse>
