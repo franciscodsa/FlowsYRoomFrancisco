@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.flowsyroomfrancisco.databinding.FragmentBlogsBinding
 import com.example.flowsyroomfrancisco.domain.model.Blog
@@ -40,7 +41,8 @@ class BlogsFragment : Fragment() {
 
         blogsAdapter = BlogsAdapter(requireContext(), object : BlogsAdapter.BlogsActions{
             override fun itemHasClicked(blog: Blog) {
-                TODO("Not yet implemented")
+                val action = BlogsFragmentDirections.actionBlogsFragmentToPostFragment(blog.id)
+                findNavController().navigate(action)
             }
         })
 

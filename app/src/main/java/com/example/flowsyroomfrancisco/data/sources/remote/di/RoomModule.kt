@@ -25,4 +25,9 @@ object RoomModule {
     @Provides
     fun provideBlogDao(database: MyRoomDatabase) = database.getBlogDao()
 
+    @Singleton
+    @Provides
+    fun providePostDao(database: MyRoomDatabase)=
+        database.getPostDao()
+
 }

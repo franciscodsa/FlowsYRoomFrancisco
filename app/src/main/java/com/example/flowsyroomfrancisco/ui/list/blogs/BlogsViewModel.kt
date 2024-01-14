@@ -42,13 +42,15 @@ class BlogsViewModel @Inject constructor(
                     when(result){
                         is NetworkResultt.Error -> _uiState.update {
                             it.copy(
-                                message = result.message
+                                message = result.message,
+                                isLoading = false
                             )
                         }
                         is NetworkResultt.Loading -> _uiState.update { it.copy(isLoading = true) }
                         is NetworkResultt.Success -> _uiState.update {
                             it.copy(
-                                blogs = result.data
+                                blogs = result.data,
+                                isLoading = false
                             )
                         }
                     }

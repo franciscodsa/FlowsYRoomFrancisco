@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import com.example.flowsyroomfrancisco.data.sources.remote.apiservices.BlogApiService
 import com.example.flowsyroomfrancisco.data.sources.remote.ConstantesSources
+import com.example.flowsyroomfrancisco.data.sources.remote.apiservices.PostApiService
 import com.example.flowsyroomfrancisco.data.sources.remote.apiservices.UserApiService
 import com.example.flowsyroomfrancisco.utils.AuthAuthenticator
 import com.example.flowsyroomfrancisco.utils.AuthInterceptor
@@ -22,6 +23,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.create
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -86,6 +88,10 @@ object NetworkModule {
     @Provides
     fun provideBlogService(retrofit: Retrofit):
             BlogApiService = retrofit.create(BlogApiService::class.java)
+
+    @Singleton
+    @Provides
+    fun providePostService(retrofit: Retrofit):PostApiService= retrofit.create(PostApiService::class.java)
 
 
 }
