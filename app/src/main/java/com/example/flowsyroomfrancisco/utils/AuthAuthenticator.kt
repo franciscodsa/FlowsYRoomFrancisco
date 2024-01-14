@@ -52,7 +52,6 @@ class AuthAuthenticator @Inject constructor(
             .build()
         val service = retrofit.create(UserApiService::class.java)
 
-        // TODO hay que cambiar esto para que funcione poruqe esta mandando el query param con bearer delante del refreshtoken
         return service.refreshAccessToken("Bearer $refreshToken")
     }
 }
