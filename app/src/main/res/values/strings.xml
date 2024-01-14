@@ -13,4 +13,6 @@
     <string name="registrarse">Registrarse</string>
     <string name="nueva_clave">Nueva contraseña</string>
     <string name="cambie_clave_message">Cambie su contraseña para poder hacer login</string>
+    <string name="navigation_drawer_open">abrir</string>
+    <string name="navigation_drawer_close">cerrar</string>
 </resources>

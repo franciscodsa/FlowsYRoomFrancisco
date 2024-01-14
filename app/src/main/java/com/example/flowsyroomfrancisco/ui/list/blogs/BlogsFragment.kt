@@ -72,7 +72,8 @@ class BlogsFragment : Fragment() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiError.collect {
-                    Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
+                    val asd = it
+                    Toast.makeText(requireContext(), asd, Toast.LENGTH_LONG).show()
                 }
             }
         }

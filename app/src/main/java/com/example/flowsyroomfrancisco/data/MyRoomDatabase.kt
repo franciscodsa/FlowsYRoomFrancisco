@@ -5,9 +5,11 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.flowsyroomfrancisco.data.model.BlogEntity
+import com.example.flowsyroomfrancisco.data.model.CategoryEntity
 import com.example.flowsyroomfrancisco.data.model.PostEntity
+import com.example.flowsyroomfrancisco.data.model.ProductsEntity
 
-@Database(entities = [BlogEntity::class, PostEntity::class], version = 1, exportSchema = true)
+@Database(entities = [BlogEntity::class, PostEntity::class, CategoryEntity::class, ProductsEntity::class], version = 2, exportSchema = true)
 abstract class MyRoomDatabase : RoomDatabase (){
 
     abstract fun getBlogDao() : BlogDao

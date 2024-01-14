@@ -7,5 +7,17 @@
     <fragment
         android:id="@+id/blogsFragment"
         android:name="com.example.flowsyroomfrancisco.ui.list.blogs.BlogsFragment"
-        android:label="BlogsFragment" />
+        android:label="BlogsFragment" >
+        <action
+            android:id="@+id/action_blogsFragment_to_postFragment"
+            app:destination="@id/postFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/postFragment"
+        android:name="com.example.flowsyroomfrancisco.ui.list.posts.PostFragment"
+        android:label="PostFragment" >
+        <action
+            android:id="@+id/action_postFragment_to_blogsFragment"
+            app:destination="@id/blogsFragment" />
+    </fragment>
 </navigation>
