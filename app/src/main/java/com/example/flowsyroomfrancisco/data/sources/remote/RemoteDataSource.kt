@@ -76,6 +76,21 @@ class RemoteDataSource @Inject constructor(
         }
     }
 
+    suspend fun changePassword(email: String, oldPassword: String, newPassword: String): NetworkResultt<Unit>{
+        try {
+            val response = userApiService.changePassword(email, oldPassword, newPassword)
+
+            return if (response.isSuccessful) {
+                NetworkResultt.Success(Unit)
+            } else {
+                val errorMessage = response.errorBody()?.string() ?: ConstantesSources.unknownError
+                error("${error} ${response.code()} : $errorMessage")
+            }
+        } catch (e: Exception) {
+            return error(e.message ?: e.toString())
+        }
+    }
+
     suspend fun getAllBlogs(): NetworkResultt<List<Blog>> {
         try {
             val response = blogApiService.getAllBlogs()

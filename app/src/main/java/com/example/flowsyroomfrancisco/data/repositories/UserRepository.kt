@@ -50,4 +50,12 @@ class UserRepository @Inject constructor(
             emit(result)
         }.flowOn(Dispatchers.IO)
     }
+
+    fun changePassword(email: String, oldPassword: String, newPassword: String): Flow<NetworkResultt<Unit>>{
+        return flow {
+            emit(NetworkResultt.Loading())
+            val result= remoteDataSource.changePassword(email, oldPassword, newPassword)
+            emit(result)
+        }.flowOn(Dispatchers.IO)
+    }
 }

@@ -52,14 +52,17 @@ class LoginFragment : Fragment() {
                 viewModel.handleEvent(LoginEvent.Login(email, password))
             }
 
+            //esta dentro de una corutina porque a veces la navegacion se ejecutaba antes que el evento y la app se cerraba
             passwordOlvidadaBttn.setOnClickListener {
-                viewModel.handleEvent(
-                    LoginEvent.OlvidePassword(
-                        editTextTextEmailAddressOlvideContraseA.text.toString()
+                lifecycleScope.launch {
+                    viewModel.handleEvent(
+                        LoginEvent.OlvidePassword(
+                            editTextTextEmailAddressOlvideContraseA.text.toString()
+                        )
                     )
-                )
-                val action = LoginFragmentDirections.actionLoginFragmentToOlvideFragment()
-                findNavController().navigate(action)
+                    val action = LoginFragmentDirections.actionLoginFragmentToOlvideFragment()
+                    findNavController().navigate(action)
+                }
             }
         }
     }
@@ -81,7 +84,6 @@ class LoginFragment : Fragment() {
                         startActivity(intent)
                     } else if (value.logged && value.isTempPassword) {
                         // Logged in with temporary password, navigate to change password fragment
-
                         val action =
                             LoginFragmentDirections.actionLoginFragmentToOlvideFragment()
                         findNavController().navigate(action)
@@ -104,4 +106,5 @@ class LoginFragment : Fragment() {
             }
         }
     }
+
 }

@@ -2,11 +2,15 @@
     <string name="app_name">FlowsYRoomFrancisco</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
+    <string name="prompt_password">Contraseña</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="welcome">"Welcome !"</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="vieja_clave">"Contraseña temporal"</string>
+    <string name="registrarse">Registrarse</string>
+    <string name="nueva_clave">Nueva contraseña</string>
+    <string name="cambie_clave_message">Cambie su contraseña para poder hacer login</string>
 </resources>

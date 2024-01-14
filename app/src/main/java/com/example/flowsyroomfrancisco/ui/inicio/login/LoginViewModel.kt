@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.json.JSONObject
 import javax.inject.Inject
 
 @HiltViewModel
@@ -61,7 +62,7 @@ class LoginViewModel @Inject constructor(
         viewModelScope.launch {
             loginUsecase.invoke(email, password)
                 .catch(action = { cause ->
-                    _uiError.send(cause.message ?: "") })
+                    _uiError.send( extractErrorMessage(cause.message?: "")) })
                 .collect { result ->
                     when (result) {
                         is NetworkResultt.Error -> _uiState.update {
@@ -82,5 +83,12 @@ class LoginViewModel @Inject constructor(
                     }
                 }
         }
+    }
+
+
+    private fun extractErrorMessage(error: String): String {
+        val regex = """"message":"([^"]+)"""".toRegex()
+        val matchResult = regex.find(error)
+        return matchResult?.groupValues?.getOrNull(1) ?: "Error"
     }
 }

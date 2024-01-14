@@ -21,4 +21,11 @@ interface UserApiService {
 
     @GET("users/refreshToken")
     suspend fun refreshAccessToken(@Query("refreshToken") refreshToken: String): Response<LoginInfoResponse>
+
+    @POST("users/changePassword")
+    suspend fun changePassword(
+        @Query("email") emai: String,
+        @Query("oldPassword") oldPassword: String,
+        @Query("newPassword") newPassword: String
+    ): Response<Unit>
 }
