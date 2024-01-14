@@ -77,8 +77,8 @@ class OlvideFragment : Fragment() {
                     val confirmPassword = editTextNewPassword.text.toString()
 
                     viewModel.handleEvent(OlvideEvent.ChangerPassword(email, password, confirmPassword))
-                    val action = OlvideFragmentDirections.actionOlvideFragmentToLoginFragment()
-                    findNavController().navigate(action)
+                    /*val action = OlvideFragmentDirections.actionOlvideFragmentToLoginFragment()
+                    findNavController().navigate(action)*/
                 }
             }
         }
