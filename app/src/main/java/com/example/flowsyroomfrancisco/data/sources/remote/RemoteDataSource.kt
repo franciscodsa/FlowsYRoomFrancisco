@@ -4,6 +4,7 @@ import com.example.flowsyroomfrancisco.data.sources.remote.ConstantesSources.err
 import com.example.flowsyroomfrancisco.data.model.LoginInfoResponse
 import com.example.flowsyroomfrancisco.data.model.LoginRequest
 import com.example.flowsyroomfrancisco.data.model.UserResponse
+import com.example.flowsyroomfrancisco.data.model.toBlogEntity
 import com.example.flowsyroomfrancisco.data.sources.remote.apiservices.BlogApiService
 import com.example.flowsyroomfrancisco.data.sources.remote.apiservices.PostApiService
 import com.example.flowsyroomfrancisco.data.sources.remote.apiservices.UserApiService
@@ -94,6 +95,8 @@ class RemoteDataSource @Inject constructor(
         }
     }
 
+    //blog requests
+
     suspend fun getAllBlogs(): NetworkResultt<List<Blog>> {
         try {
             val response = blogApiService.getAllBlogs()
@@ -113,6 +116,43 @@ class RemoteDataSource @Inject constructor(
         }
     }
 
+    suspend fun createBlog(blog: Blog): NetworkResultt<Blog> {
+        try {
+            val response = blogApiService.createBlog(blog.toBlogEntity()) // Assuming you have a method to convert domain model to entity
+
+            return if (response.isSuccessful) {
+                val body = response.body()
+                body?.let {
+                    return NetworkResultt.Success(it)
+                }
+                error(ConstantesSources.noData)
+            } else {
+                val errorMessage = response.errorBody()?.string() ?: ConstantesSources.unknownError
+                error("${error} ${response.code()} : $errorMessage")
+            }
+        } catch (e: Exception) {
+            return error(e.message ?: e.toString())
+        }
+    }
+
+    suspend fun deleteBlog(blogId: Int): NetworkResultt<Unit> {
+        try {
+            val response = blogApiService.deleteBlog(blogId)
+
+            return if (response.isSuccessful) {
+                NetworkResultt.Success(Unit)
+            } else {
+                val errorMessage = response.errorBody()?.string() ?: ConstantesSources.unknownError
+                error("${error} ${response.code()} : $errorMessage")
+            }
+        } catch (e: Exception) {
+            return error(e.message ?: e.toString())
+        }
+    }
+
+
+
+    //post requests
     suspend fun getAllPosts(): NetworkResultt<List<Post>> {
         try {
             val response = postApiService.getAllPosts()

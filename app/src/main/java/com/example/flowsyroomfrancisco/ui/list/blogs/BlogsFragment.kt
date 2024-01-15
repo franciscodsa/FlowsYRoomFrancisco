@@ -11,9 +11,11 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.flowsyroomfrancisco.databinding.FragmentBlogsBinding
 import com.example.flowsyroomfrancisco.domain.model.Blog
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -44,10 +46,23 @@ class BlogsFragment : Fragment() {
                 val action = BlogsFragmentDirections.actionBlogsFragmentToPostFragment(blog.id)
                 findNavController().navigate(action)
             }
+
+            override fun onDelete(blog: Blog) {
+                viewModel.handleEvent(BlogsEvent.DeleteBlog(blog.id))
+            }
         })
 
         binding.blogRecycleView.adapter = blogsAdapter
         binding.blogRecycleView.layoutManager = LinearLayoutManager(requireContext())
+
+        val addBlogButton: FloatingActionButton = binding.addBlogButton
+
+        addBlogButton.setOnClickListener{
+            viewModel.handleEvent(BlogsEvent.CreateBlog(Blog(0, "", emptyList())))
+        }
+
+        val touchHelper = ItemTouchHelper(blogsAdapter.swipeGesture)
+        touchHelper.attachToRecyclerView(binding.blogRecycleView)
 
         viewModel.handleEvent(BlogsEvent.GetAllBlogs)
 

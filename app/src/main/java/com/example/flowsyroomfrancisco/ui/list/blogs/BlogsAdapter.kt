@@ -5,11 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.flowsyroomfrancisco.R
 import com.example.flowsyroomfrancisco.databinding.ItemBlogsBinding
 import com.example.flowsyroomfrancisco.domain.model.Blog
+import com.example.recyclerviewretrofitfrancisco.framework.SwipeGesture
 
 
 class BlogsAdapter(
@@ -19,6 +21,7 @@ class BlogsAdapter(
 
     interface BlogsActions {
         fun itemHasClicked(blog: Blog)
+        fun onDelete(blog: Blog)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
@@ -52,6 +55,15 @@ class BlogsAdapter(
 
     }
 
+
+    val swipeGesture = object : SwipeGesture(context){
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            if (direction == ItemTouchHelper.LEFT){
+                val position = viewHolder.bindingAdapterPosition
+                actions.onDelete(currentList[position])
+            }
+        }
+    }
 
 }
 

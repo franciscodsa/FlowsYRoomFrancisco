@@ -44,4 +44,20 @@ class BlogRepository @Inject constructor(
             }
         }
     }.flowOn(Dispatchers.IO)
+
+    fun createBlog(blog: Blog): Flow<NetworkResultt<Blog>> = flow {
+        val result = remoteDataSource.createBlog(blog)
+        if (result is NetworkResultt.Success) {
+            result.data?.toBlogEntity()?.let { blogDao.insertBlog(it) }
+        }
+        emit(result)
+    }.flowOn(Dispatchers.IO)
+
+    fun deleteBlog(blogId: Int): Flow<NetworkResultt<Unit>> = flow {
+        val result = remoteDataSource.deleteBlog(blogId)
+        if (result is NetworkResultt.Success) {
+            blogDao.deleteAllBlogs()
+        }
+        emit(result)
+    }.flowOn(Dispatchers.IO)
 }
