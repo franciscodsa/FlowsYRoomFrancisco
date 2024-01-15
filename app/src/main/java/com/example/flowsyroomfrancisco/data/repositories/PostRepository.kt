@@ -60,9 +60,7 @@ class PostRepository @Inject constructor(
             // Actualizar la base de datos local si la solicitud fue exitosa
             if (result is NetworkResultt.Success) {
                 result.data?.let { lista ->
-                    postDao.deletePostList(lista.map {
-                        it.toPostEntity()
-                    })
+                    postDao.deleteAllBlogs()
                     postDao.insertAll(lista.map {
                         it.toPostEntity()
                     })
