@@ -21,4 +21,4 @@ fun Blog.toBlogWithPosts(): BlogWithPosts = BlogWithPosts(this.toBlogEntity(), t
     it.toPostEntity(this.id)
 })
 
-fun Post.toPostEntity(blogId: Int = 0): PostEntity = PostEntity(title, content, blogId, id)
+fun Post.toPostEntity(blogId: Int): PostEntity = PostEntity(title, content, blogId, id)

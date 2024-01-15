@@ -35,9 +35,9 @@ class PostRepository @Inject constructor(
             if (result is NetworkResultt.Success) {
                 result.data?.let { lista ->
                     postDao.deleteAllBlogs()
-                    postDao.insertAll(lista.map {
+                    /*postDao.insertAll(lista.map {
                         it.toPostEntity()
-                    })
+                    })*/
                 }
                 Log.d("PostRepository", "Loading data from server")
             }
@@ -62,7 +62,7 @@ class PostRepository @Inject constructor(
                 result.data?.let { lista ->
                     postDao.deleteAllBlogs()
                     postDao.insertAll(lista.map {
-                        it.toPostEntity()
+                        it.toPostEntity(blogId)
                     })
                 }
                 Log.d("PostRepository", "Loading data from server for Blog ID: $blogId")
