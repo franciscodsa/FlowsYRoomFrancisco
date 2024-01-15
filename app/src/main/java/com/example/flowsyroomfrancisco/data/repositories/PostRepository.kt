@@ -47,6 +47,7 @@ class PostRepository @Inject constructor(
     fun getAllPostsByBlogId(blogId: Int): Flow<NetworkResultt<List<Post>>> = flow {
         emit(NetworkResultt.Loading())
 
+        val result = remoteDataSource.getAllPostsByBlogId(blogId)
         // Consultar la base de datos local por posts con el ID de blog específico
         val localPosts = postDao.getAllPostsByBlogId(blogId)
         if (localPosts.isNotEmpty()) {
@@ -62,7 +63,6 @@ class PostRepository @Inject constructor(
                 result.data?.let { lista ->
                     postDao.deleteAllBlogs()
 
-                    //TODO : QUITE EL DEFAULT VALUE DE BLOG ID DEL MAPPER
                     postDao.insertAll(lista.map {
                         it.toPostEntity(blogId)
                     })
