@@ -61,6 +61,8 @@ class PostRepository @Inject constructor(
             if (result is NetworkResultt.Success) {
                 result.data?.let { lista ->
                     postDao.deleteAllBlogs()
+
+                    //TODO : QUITE EL DEFAULT VALUE DE BLOG ID DEL MAPPER
                     postDao.insertAll(lista.map {
                         it.toPostEntity(blogId)
                     })
