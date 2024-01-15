@@ -9,7 +9,7 @@ import com.example.flowsyroomfrancisco.data.model.CategoryEntity
 import com.example.flowsyroomfrancisco.data.model.PostEntity
 import com.example.flowsyroomfrancisco.data.model.ProductsEntity
 
-@Database(entities = [BlogEntity::class, PostEntity::class, CategoryEntity::class, ProductsEntity::class], version = 2, exportSchema = true)
+@Database(entities = [BlogEntity::class, PostEntity::class, CategoryEntity::class, ProductsEntity::class], version = 3, exportSchema = true)
 abstract class MyRoomDatabase : RoomDatabase (){
 
     abstract fun getBlogDao() : BlogDao

@@ -22,8 +22,8 @@ data class PostEntity(
     @ColumnInfo(name = "content")
     val content: String,
     @ColumnInfo(name = "blogId")
-    val blogId: Int = 0,
+    val blogId: Int,
     @ColumnInfo(name = "id")
-    @PrimaryKey(autoGenerate = true)
-    val id: Int = 0
+    @PrimaryKey
+    val id: Int,
 )

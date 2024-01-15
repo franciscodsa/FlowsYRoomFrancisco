@@ -7,8 +7,8 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "blogs")
 data class BlogEntity(
     @ColumnInfo(name = "id")
-    @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
+    @PrimaryKey
+    val id: Int,
     @ColumnInfo(name = "name")
     val name: String
 )

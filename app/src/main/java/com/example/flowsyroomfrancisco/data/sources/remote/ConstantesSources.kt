@@ -17,6 +17,6 @@ object ConstantesSources {
     const val deleteCustomer ="customers/{id}"
 
     //NetworkModule
-    const val urlsBase = "http://192.168.1.131:8080/PracticaLoginRegistro-1.0-SNAPSHOT/api/"
+    const val urlsBase = "http://10.2.3.113:8080/PracticaLoginRegistro-1.0-SNAPSHOT/api/"
 
 }

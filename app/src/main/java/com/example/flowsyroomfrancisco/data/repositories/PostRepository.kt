@@ -24,7 +24,7 @@ class PostRepository @Inject constructor(
         // Consultar la base de datos local
         val localPosts = postDao.getAllPosts()
         if (localPosts.isNotEmpty()) {
-            Log.d("com.example.flowsyroomfrancisco.data.repositories.PostRepository", "Loading data from local database")
+            Log.d("PostRepository", "Loading data from local database")
             emit(NetworkResultt.Success(localPosts.map { it.toPost() }))
         } else {
             // Realizar la solicitud al servidor solo si no hay datos locales
@@ -39,7 +39,7 @@ class PostRepository @Inject constructor(
                         it.toPostEntity()
                     })
                 }
-                Log.d("com.example.flowsyroomfrancisco.data.repositories.PostRepository", "Loading data from server")
+                Log.d("PostRepository", "Loading data from server")
             }
         }
     }.flowOn(Dispatchers.IO)
@@ -50,7 +50,7 @@ class PostRepository @Inject constructor(
         // Consultar la base de datos local por posts con el ID de blog específico
         val localPosts = postDao.getAllPostsByBlogId(blogId)
         if (localPosts.isNotEmpty()) {
-            Log.d("com.example.flowsyroomfrancisco.data.repositories.PostRepository", "Loading data from local database for Blog ID: $blogId")
+            Log.d("PostRepository", "Loading data from local database for Blog ID: $blogId")
             emit(NetworkResultt.Success(localPosts.map { it.toPost() }))
         } else {
             // Realizar la solicitud al servidor solo si no hay datos locales para ese blogId
@@ -60,12 +60,14 @@ class PostRepository @Inject constructor(
             // Actualizar la base de datos local si la solicitud fue exitosa
             if (result is NetworkResultt.Success) {
                 result.data?.let { lista ->
-                    postDao.deleteAllBlogs()
+                    postDao.deletePostList(lista.map {
+                        it.toPostEntity()
+                    })
                     postDao.insertAll(lista.map {
                         it.toPostEntity()
                     })
                 }
-                Log.d("com.example.flowsyroomfrancisco.data.repositories.PostRepository", "Loading data from server for Blog ID: $blogId")
+                Log.d("PostRepository", "Loading data from server for Blog ID: $blogId")
             }
         }
     }.flowOn(Dispatchers.IO)
